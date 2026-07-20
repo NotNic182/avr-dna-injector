@@ -21,6 +21,14 @@ try:
 except ImportError:
     winreg = None
 
+try:
+    import ctypes
+    # Opt in to per-monitor DPI awareness so Windows doesn't blurry-stretch
+    # the window and throw off tkinter's pixel measurements on scaled displays.
+    ctypes.windll.shcore.SetProcessDpiAwareness(1)
+except Exception:
+    pass
+
 # ---------------------------------------------------------------- constants
 KEY_PATH        = r"Software\AdultVRGameRoom\Adult VR Game Room"
 VALUE_NAME      = "stats_dna_samples_h3759496538"
@@ -154,8 +162,6 @@ class App(tk.Tk):
         super().__init__()
         self.title("Adult VR Game Room  —  DNA Storage Injector")
         self.configure(bg=BG)
-        self.geometry("860x560")
-        self.minsize(820, 520)
         self.samples = []
         self.dirty = False
 
@@ -165,7 +171,24 @@ class App(tk.Tk):
         self._build_body()
         self._build_footer()
 
+        self._fit_window()
+
         self.reload(initial=True)
+
+    def _fit_window(self):
+        """Size the window so every widget is visible on first open.
+
+        A hard-coded geometry clips the footer buttons on scaled/HiDPI
+        displays, so ask tkinter what the built UI actually needs and use
+        that as the floor (capped to the screen just in case).
+        """
+        self.update_idletasks()
+        req_w = self.winfo_reqwidth()
+        req_h = self.winfo_reqheight()
+        w = min(max(req_w, 860), self.winfo_screenwidth() - 80)
+        h = min(max(req_h, 560), self.winfo_screenheight() - 120)
+        self.geometry(f"{w}x{h}")
+        self.minsize(min(req_w, w), min(req_h, h))
 
     # ---- styling
     def _init_style(self):

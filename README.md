@@ -24,6 +24,27 @@ the game is running (the game overwrites its save on exit).
 Download `DNA Injector.exe` from the [Releases](../../releases) page and
 double-click it. Nothing to install.
 
+> **⚠ Windows will probably warn you about the EXE — that's normal.**
+> Windows flags any downloaded `.exe` that isn't code-signed with an expensive
+> certificate, which small free tools like this don't have. It is **not** a
+> virus detection — this project is fully open source, so you can read
+> [`dna_injector.pyw`](dna_injector.pyw) yourself and see exactly what it does
+> (it only touches the game's registry key and writes backups).
+>
+> To get past the warnings:
+>
+> - **Browser blocks the download:** click the download entry → **Keep** →
+>   **Keep anyway** (Edge/Chrome may hide this under "…" / "Show more").
+> - **"Windows protected your PC" (SmartScreen) when running it:** click
+>   **More info** → **Run anyway**.
+> - **Still blocked?** Right-click the EXE → **Properties** → tick
+>   **Unblock** at the bottom → **OK**, then run it again.
+>
+> If you'd rather not trust a pre-built EXE at all, use Option B below or
+> [build the EXE yourself](#build-the-exe-yourself) from the source in this
+> repo — a locally built EXE isn't marked as downloaded, so Windows won't
+> nag you about it either.
+
 **Option B — run the script.**
 With [Python 3](https://www.python.org/downloads/) installed:
 
