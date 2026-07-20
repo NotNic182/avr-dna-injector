@@ -1,0 +1,19 @@
+# PyInstaller build output
+build/
+dist/
+*.spec
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Local backups / saves (never commit personal save data)
+*.reg
+*_backup_*.txt
+
+# OS / editor cruft
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
